@@ -121,7 +121,12 @@ function App() {
   return (
     <Container maxW={"container.lg"} py={70}>
       <VStack spacing={20} align="stretch">
-        <Flex alignItems={"center"} position="relative">
+        <Flex
+          alignItems={"center"}
+          position="relative"
+          direction={{ base: "column", lg: "row" }}
+          gap={{ base: 4, lg: 0 }}
+        >
           <Box
             border="5px solid"
             borderColor="#3659B9"
@@ -130,23 +135,39 @@ function App() {
             alignItems={"center"}
             justifyContent={"center"}
             top={"30%"}
+            display={{ base: "none", lg: "block" }}
           ></Box>
-          <Image src="/boximage.png" w="640px" h="640px" position="absolute" />
+          <Image
+            src="/boximage.png"
+            w={{ base: "280px", md: "400px", lg: "640px" }}
+            h={{ base: "280px", md: "400px", lg: "640px" }}
+            position={{ base: "static", lg: "absolute" }}
+            objectFit="contain"
+          />
           <Flex>
             <VStack
-              transform="translate(120px,100px)"
+              transform={{ base: "none", lg: "translate(120px,100px)" }}
               alignItems={"flex-start"}
+              spacing={{ base: 4, lg: 2 }}
+              mt={{ base: 4, lg: 0 }}
             >
-              <Flex alignItems="flex-end" gap={6}>
+              <Flex
+                gap={6}
+                direction={{ base: "column", md: "row" }}
+                alignItems={{ base: "flex-start", md: "flex-end" }}
+              >
                 <VStack alignItems={"flex-start"} gap={-1}>
-                  <Text fontSize="5xl" color="#3D3D3D">
+                  <Text
+                    fontSize={{ base: "3xl", md: "4xl", lg: "5xl" }}
+                    color="#3D3D3D"
+                  >
                     Kilox
                   </Text>
-                  <Text fontSize="18px" color="#3D3D3D">
+                  <Text fontSize={{ base: "16px", md: "18px" }} color="#3D3D3D">
                     那就永远自由
                   </Text>
                 </VStack>
-                <Text fontSize="18px" color="#3D3D3D">
+                <Text fontSize={{ base: "16px", md: "18px" }} color="#3D3D3D">
                   A Normal Student Majoring in
                   <br />
                   Electrical Engineering
@@ -184,12 +205,13 @@ function App() {
                     border="1px solid"
                     borderColor="rgba(255, 255, 255, 0.3)"
                     borderRadius="8"
+                    size={{ base: "sm", md: "md" }}
                   >
                     {link.name}
                   </Button>
                 ))}
               </Flex>
-              <Box>
+              <Box w="100%">
                 {currentlyStudying.map((section) => (
                   <Card
                     key={section.title}
