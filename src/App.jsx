@@ -137,28 +137,13 @@ function App() {
             top={"30%"}
             display={{ base: "none", lg: "block" }}
           ></Box>
-          {/* 使用 picture 元素提供多种格式 */}
-          <Box
+          <Image
+            src="/boximage.png"
             w={{ base: "280px", md: "400px", lg: "640px" }}
             h={{ base: "280px", md: "400px", lg: "640px" }}
             position={{ base: "static", lg: "absolute" }}
-          >
-            <picture>
-              <source srcSet="/boximage.webp" type="image/webp" />
-              <source srcSet="/boximage.avif" type="image/avif" />
-              <Image
-                src="/boximage.png"
-                alt="Profile image"
-                w="100%"
-                h="100%"
-                objectFit="contain"
-                loading="eager"
-                opacity={imageLoaded ? 1 : 0}
-                transition="opacity 0.3s ease"
-                fallbackSrc="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDQwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iNDAwIiBmaWxsPSIjRjNGNEY2Ii8+CjxjaXJjbGUgY3g9IjIwMCIgY3k9IjIwMCIgcj0iNTAiIGZpbGw9IiNEMUQ1REIiLz4KPC9zdmc+"
-              />
-            </picture>
-          </Box>
+            objectFit="contain"
+          />
           <Flex>
             <VStack
               transform={{ base: "none", lg: "translate(120px,100px)" }}
