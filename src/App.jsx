@@ -507,36 +507,36 @@ function App() {
             </Text>
           </HStack>
 
-          <VStack spacing={4} align="stretch">
-            <HStack spacing={3}>
-              <Icon
-                icon="mingcute:lightning-line"
-                width="15"
-                height="15"
-                color="#2C72FF"
-              />
-              <Text fontSize="xl" fontWeight="bold" color="#2D3748">
-                EDM
-              </Text>
-            </HStack>
+          <VStack spacing={6} align="stretch">
+            <VStack spacing={4} align="stretch">
+              <HStack spacing={3}>
+                <Icon
+                  icon="mingcute:lightning-line"
+                  width="15"
+                  height="15"
+                  color="#2C72FF"
+                />
+                <Text fontSize="xl" fontWeight="bold" color="#2D3748">
+                  EDM
+                </Text>
+              </HStack>
 
-            <Flex gap={3}>
               <Box
                 borderRadius="12px"
                 overflow="hidden"
                 bg="rgba(255, 255, 255, 0.1)"
-                p={2}
-                flex={1}
+                p={3}
+                w="100%"
               >
                 <iframe
-                  style={{ borderRadius: "12px" }}
-                  src="https://open.spotify.com/embed/artist/1NfT4THLhxNASM4xVImfNg?utm_source=generator"
+                  frameBorder="no"
+                  border="0"
+                  marginWidth="0"
+                  marginHeight="0"
                   width="100%"
-                  height="152"
-                  frameBorder="0"
-                  allowFullScreen
-                  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                  loading="lazy"
+                  height="86"
+                  src="//music.163.com/outchain/player?type=2&id=1940303073&auto=0&height=66"
+                  style={{ borderRadius: "8px" }}
                 />
               </Box>
 
@@ -544,53 +544,18 @@ function App() {
                 borderRadius="12px"
                 overflow="hidden"
                 bg="rgba(255, 255, 255, 0.1)"
-                p={2}
-                flex={1}
+                p={3}
+                w="100%"
               >
                 <iframe
-                  style={{ borderRadius: "12px" }}
-                  src="https://open.spotify.com/embed/artist/3dz0NnIZhtKKeXZxLOxCam?utm_source=generator"
+                  frameBorder="no"
+                  border="0"
+                  marginWidth="0"
+                  marginHeight="0"
                   width="100%"
-                  height="152"
-                  frameBorder="0"
-                  allowFullScreen
-                  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                  loading="lazy"
-                />
-              </Box>
-            </Flex>
-          </VStack>
-
-          <VStack spacing={4} align="stretch">
-            <HStack spacing={3}>
-              <Icon
-                icon="mingcute:microphone-line"
-                width="15"
-                height="15"
-                color="#2C72FF"
-              />
-              <Text fontSize="xl" fontWeight="bold" color="#2D3748">
-                JPOP
-              </Text>
-            </HStack>
-
-            <Flex gap={3}>
-              <Box
-                borderRadius="12px"
-                overflow="hidden"
-                bg="rgba(255, 255, 255, 0.1)"
-                p={2}
-                flex={1}
-              >
-                <iframe
-                  style={{ borderRadius: "12px" }}
-                  src="https://open.spotify.com/embed/artist/38WbKH6oKAZskBhqDFA8Uj?utm_source=generator"
-                  width="100%"
-                  height="152"
-                  frameBorder="0"
-                  allowFullScreen
-                  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                  loading="lazy"
+                  height="86"
+                  src="//music.163.com/outchain/player?type=2&id=1421200829&auto=0&height=66"
+                  style={{ borderRadius: "8px" }}
                 />
               </Box>
 
@@ -598,21 +563,126 @@ function App() {
                 borderRadius="12px"
                 overflow="hidden"
                 bg="rgba(255, 255, 255, 0.1)"
-                p={2}
-                flex={1}
+                p={3}
+                w="100%"
               >
                 <iframe
-                  style={{ borderRadius: "12px" }}
-                  src="https://open.spotify.com/embed/artist/4UK2Lzi6fBfUi9rpDt6cik?utm_source=generator"
+                  frameBorder="no"
+                  border="0"
+                  marginWidth="0"
+                  marginHeight="0"
                   width="100%"
-                  height="152"
-                  frameBorder="0"
-                  allowFullScreen
-                  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                  loading="lazy"
+                  height="86"
+                  src="//music.163.com/outchain/player?type=2&id=425280053&auto=0&height=66"
+                  style={{ borderRadius: "8px" }}
                 />
               </Box>
-            </Flex>
+
+              <Box
+                borderRadius="12px"
+                overflow="hidden"
+                bg="rgba(255, 255, 255, 0.1)"
+                p={3}
+                w="100%"
+              >
+                <iframe
+                  frameBorder="no"
+                  border="0"
+                  marginWidth="0"
+                  marginHeight="0"
+                  width="100%"
+                  height="86"
+                  src="//music.163.com/outchain/player?type=2&id=1815533595&auto=0&height=66"
+                  style={{ borderRadius: "8px" }}
+                />
+              </Box>
+              <HStack spacing={3}>
+                <Icon
+                  icon="mingcute:microphone-line"
+                  width="15"
+                  height="15"
+                  color="#2C72FF"
+                />
+                <Text fontSize="xl" fontWeight="bold" color="#2D3748">
+                  JPOP-我是ZUTOMAYO小馋猫-ACA小姐🤤🤤
+                </Text>
+              </HStack>
+              <Box
+                borderRadius="12px"
+                overflow="hidden"
+                bg="rgba(255, 255, 255, 0.1)"
+                p={3}
+                w="100%"
+              >
+                <iframe
+                  frameBorder="no"
+                  border="0"
+                  marginWidth="0"
+                  marginHeight="0"
+                  width="100%"
+                  height="86"
+                  src="//music.163.com/outchain/player?type=2&id=1325357378&auto=0&height=66"
+                  style={{ borderRadius: "8px" }}
+                />
+              </Box>
+
+              <Box
+                borderRadius="12px"
+                overflow="hidden"
+                bg="rgba(255, 255, 255, 0.1)"
+                p={3}
+                w="100%"
+              >
+                <iframe
+                  frameBorder="no"
+                  border="0"
+                  marginWidth="0"
+                  marginHeight="0"
+                  width="100%"
+                  height="86"
+                  src="//music.163.com/outchain/player?type=2&id=1325356411&auto=0&height=66"
+                  style={{ borderRadius: "8px" }}
+                />
+              </Box>
+
+              <Box
+                borderRadius="12px"
+                overflow="hidden"
+                bg="rgba(255, 255, 255, 0.1)"
+                p={3}
+                w="100%"
+              >
+                <iframe
+                  frameBorder="no"
+                  border="0"
+                  marginWidth="0"
+                  marginHeight="0"
+                  width="100%"
+                  height="86"
+                  src="//music.163.com/outchain/player?type=2&id=1990571322&auto=0&height=66"
+                  style={{ borderRadius: "8px" }}
+                />
+              </Box>
+
+              <Box
+                borderRadius="12px"
+                overflow="hidden"
+                bg="rgba(255, 255, 255, 0.1)"
+                p={3}
+                w="100%"
+              >
+                <iframe
+                  frameBorder="no"
+                  border="0"
+                  marginWidth="0"
+                  marginHeight="0"
+                  width="100%"
+                  height="86"
+                  src="//music.163.com/outchain/player?type=2&id=1870469768&auto=0&height=66"
+                  style={{ borderRadius: "8px" }}
+                />
+              </Box>
+            </VStack>
           </VStack>
         </VStack>
       </VStack>
