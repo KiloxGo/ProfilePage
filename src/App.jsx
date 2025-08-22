@@ -182,16 +182,19 @@ function App() {
           <Flex>
             <VStack
               transform={{ base: "none", lg: "translate(120px,100px)" }}
-              alignItems={"flex-start"}
+              alignItems={{ base: "center", md: "flex-start" }}
               spacing={{ base: 4, lg: 2 }}
               mt={{ base: 4, lg: 0 }}
             >
               <Flex
                 gap={6}
                 direction={{ base: "column", md: "row" }}
-                alignItems={{ base: "flex-start", md: "flex-end" }}
+                alignItems={{ base: "center", md: "flex-end" }}
               >
-                <VStack alignItems={"flex-start"} gap={-1}>
+                <VStack
+                  alignItems={{ base: "center", md: "flex-start" }}
+                  gap={-1}
+                >
                   <Text
                     fontSize={{ base: "3xl", md: "4xl", lg: "5xl" }}
                     color="#3D3D3D"
