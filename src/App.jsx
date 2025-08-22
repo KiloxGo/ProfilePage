@@ -13,6 +13,7 @@ import {
   CardBody,
   Progress,
   Skeleton,
+  Avatar,
 } from "@chakra-ui/react";
 import { Icon } from "@iconify/react";
 import "./index.css";
@@ -91,6 +92,7 @@ function App() {
   const [wakaTimeData, setWakaTimeData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isImageLoaded, setIsImageLoaded] = useState(false);
+  const [isAvatarLoaded, setIsAvatarLoaded] = useState(false);
 
   useEffect(() => {
     const fetchWakaTimeData = async () => {
@@ -139,11 +141,35 @@ function App() {
             top={"30%"}
             display={{ base: "none", lg: "block" }}
           ></Box>
+          <Box display={{ base: "block", lg: "none" }}>
+            <Image
+              src="/avatar.png"
+              onLoad={() => setIsAvatarLoaded(true)}
+              display="none"
+            />
+            <Skeleton
+              isLoaded={isAvatarLoaded}
+              w={{ base: "280px", md: "400px" }}
+              h={{ base: "280px", md: "400px" }}
+              borderRadius="full"
+            >
+              <Avatar
+                src="/avatar.png"
+                name="Kilox"
+                size="full"
+                w="100%"
+                h="100%"
+                border="3px solid #3659B9"
+              />
+            </Skeleton>
+          </Box>
+
           <Skeleton
             isLoaded={isImageLoaded}
-            w={{ base: "280px", md: "400px", lg: "640px" }}
-            h={{ base: "280px", md: "400px", lg: "640px" }}
+            w={{ base: "0", lg: "640px" }}
+            h={{ base: "0", lg: "640px" }}
             position={{ base: "static", lg: "absolute" }}
+            display={{ base: "none", lg: "block" }}
           >
             <Image
               src="/boximage.png"
