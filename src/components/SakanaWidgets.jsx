@@ -1,18 +1,16 @@
 import { useEffect, useRef } from "react";
-import { Box, useBreakpointValue } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 
 function SakanaWidgets() {
-  const isDesktop = useBreakpointValue(
-    { base: false, lg: true },
-    { ssr: false }
-  );
-
   const leftElRef = useRef(null);
   const rightElRef = useRef(null);
-  const widgetsRef = useRef({ left: null, right: null });
+  const widgetsInitialized = useRef(false);
 
   useEffect(() => {
     const initWidgets = async () => {
+      if (widgetsInitialized.current) return;
+      widgetsInitialized.current = true;
+
       try {
         await import("sakana-widget/lib/index.css");
         const { default: SakanaWidget } = await import("sakana-widget");
@@ -25,52 +23,40 @@ function SakanaWidgets() {
           threshold: 0.1,
         };
 
-        if (leftElRef.current && !widgetsRef.current.left) {
+        if (leftElRef.current) {
           const leftWidget = new SakanaWidget({
             ...widgetOptions,
             character: "chisato",
           });
           leftWidget.mount(leftElRef.current);
-          widgetsRef.current.left = leftWidget;
         }
 
-        if (rightElRef.current && !widgetsRef.current.right) {
+        if (rightElRef.current) {
           const rightWidget = new SakanaWidget({
             ...widgetOptions,
             character: "takina",
           });
           rightWidget.mount(rightElRef.current);
-          widgetsRef.current.right = rightWidget;
         }
       } catch (error) {
         console.error("Failed to load or mount SakanaWidget:", error);
       }
     };
 
-    if (isDesktop) {
-      initWidgets();
-    }
-
-    return () => {
-      if (widgetsRef.current.left) {
-        widgetsRef.current.left.unmount();
-        widgetsRef.current.left = null;
-      }
-      if (widgetsRef.current.right) {
-        widgetsRef.current.right.unmount();
-        widgetsRef.current.right = null;
-      }
-    };
-  }, [isDesktop]);
-
-  if (!isDesktop) {
-    return null;
-  }
+    initWidgets();
+  }, []);
 
   return (
     <>
       {/*左下角*/}
-      <Box ref={leftElRef} position="fixed" bottom="0" left="0" zIndex="999" />
+      <Box
+        ref={leftElRef}
+        position="fixed"
+        bottom="0"
+        left="0"
+        zIndex="999"
+        display={{ base: "none", lg: "block" }}
+      />
       {/*右下角*/}
       <Box
         ref={rightElRef}
@@ -78,6 +64,7 @@ function SakanaWidgets() {
         bottom="0"
         right="0"
         zIndex="999"
+        display={{ base: "none", lg: "block" }}
       />
     </>
   );
