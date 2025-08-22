@@ -42,7 +42,7 @@ const socialLinks = [
 const currentlyStudying = [
   {
     title: "正在学习",
-    description: "方面广，学得浅()",
+    description: "实际上有点摆烂",
     icon: "TrendingUp",
     iconColor: "text-green-500",
     languages: [
