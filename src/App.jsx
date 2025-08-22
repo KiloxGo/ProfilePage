@@ -12,6 +12,7 @@ import {
   CardHeader,
   CardBody,
   Progress,
+  Skeleton,
 } from "@chakra-ui/react";
 import { Icon } from "@iconify/react";
 import "./index.css";
@@ -89,6 +90,7 @@ const getLangIcon = (langName) => {
 function App() {
   const [wakaTimeData, setWakaTimeData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
 
   useEffect(() => {
     const fetchWakaTimeData = async () => {
@@ -137,13 +139,22 @@ function App() {
             top={"30%"}
             display={{ base: "none", lg: "block" }}
           ></Box>
-          <Image
-            src="/boximage.png"
+          <Skeleton
+            isLoaded={isImageLoaded}
             w={{ base: "280px", md: "400px", lg: "640px" }}
             h={{ base: "280px", md: "400px", lg: "640px" }}
             position={{ base: "static", lg: "absolute" }}
-            objectFit="contain"
-          />
+            borderRadius="full"
+          >
+            <Image
+              src="/boximage.png"
+              onLoad={() => setIsImageLoaded(true)}
+              w="100%"
+              h="100%"
+              objectFit="contain"
+              borderRadius="full"
+            />
+          </Skeleton>
           <Flex>
             <VStack
               transform={{ base: "none", lg: "translate(120px,100px)" }}
