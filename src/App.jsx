@@ -144,7 +144,6 @@ function App() {
             w={{ base: "280px", md: "400px", lg: "640px" }}
             h={{ base: "280px", md: "400px", lg: "640px" }}
             position={{ base: "static", lg: "absolute" }}
-            borderRadius="full"
           >
             <Image
               src="/boximage.png"
@@ -152,7 +151,6 @@ function App() {
               w="100%"
               h="100%"
               objectFit="contain"
-              borderRadius="full"
             />
           </Skeleton>
           <Flex>
