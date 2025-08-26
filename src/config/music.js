@@ -14,20 +14,22 @@ export const MUSIC_CONFIG = {
     {
       id: "14042168814",
       name: "我喜欢你",
-      color: "#FF6B9D",
       description: "精选好听的歌曲",
     },
     {
       id: "13592899660",
       name: "JPOP",
-      color: "#4ECDC4",
       description: "日语流行音乐",
+    },
+    {
+      id: "5003387223",
+      name: "Favorites",
+      description: "我最喜欢的歌曲",
     },
     // 可以添加更多歌单
     // {
     //   id: "your_playlist_id",
     //   name: "歌单名称",
-    //   color: "#颜色代码",
     //   description: "歌单描述",
     // },
   ],

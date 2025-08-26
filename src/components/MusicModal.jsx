@@ -56,8 +56,9 @@ export const MusicModal = ({ isOpen, onClose }) => {
         // 处理所有歌曲，包括版权受限的
         const formattedMusic = data.songs.map((song, index) => {
           const privilege = data.privileges?.[index];
-          const isPlayable = privilege && privilege.st === 0 && privilege.pl > 0;
-          
+          const isPlayable =
+            privilege && privilege.st === 0 && privilege.pl > 0;
+
           return {
             id: song.id,
             name: song.name,
@@ -191,7 +192,7 @@ export const MusicModal = ({ isOpen, onClose }) => {
               bg={PROFILE_CONFIG.colors.background.card}
               backdropFilter="blur(20px)"
               border={`1px solid ${PROFILE_CONFIG.colors.secondary}40`}
-              borderRadius="20px 0 0 20px"
+              borderRadius="20px"
               boxShadow="0 20px 40px rgba(54, 89, 185, 0.2), 0 8px 16px rgba(119, 187, 221, 0.15)"
               maxH="80vh"
               flex="1"
@@ -246,12 +247,7 @@ export const MusicModal = ({ isOpen, onClose }) => {
             {/* 右侧标签栏 */}
             <VStack
               spacing={2}
-              bg={PROFILE_CONFIG.colors.background.card}
-              backdropFilter="blur(20px)"
-              border={`1px solid ${PROFILE_CONFIG.colors.secondary}40`}
-              borderLeft="none"
-              borderRadius="0 20px 20px 0"
-              boxShadow="0 20px 40px rgba(54, 89, 185, 0.2), 0 8px 16px rgba(119, 187, 221, 0.15)"
+              bg="transparent"
               p={4}
               minW="120px"
               maxH="80vh"
@@ -265,7 +261,9 @@ export const MusicModal = ({ isOpen, onClose }) => {
                   p={3}
                   borderRadius="12px"
                   bg={
-                    index === selectedPlaylist ? playlist.color : "transparent"
+                    index === selectedPlaylist
+                      ? PROFILE_CONFIG.colors.primary
+                      : PROFILE_CONFIG.colors.background.badge
                   }
                   color={
                     index === selectedPlaylist
@@ -283,9 +281,14 @@ export const MusicModal = ({ isOpen, onClose }) => {
                   _hover={{
                     bg:
                       index === selectedPlaylist
-                        ? playlist.color
-                        : `${playlist.color}20`,
+                        ? PROFILE_CONFIG.colors.primary
+                        : `${PROFILE_CONFIG.colors.primary}20`,
+                    color:
+                      index === selectedPlaylist
+                        ? "white"
+                        : PROFILE_CONFIG.colors.primary,
                     transform: "translateX(-2px)",
+                    borderColor: PROFILE_CONFIG.colors.primary,
                   }}
                   onClick={() => setSelectedPlaylist(index)}
                   textAlign="center"
@@ -303,13 +306,15 @@ export const MusicModal = ({ isOpen, onClose }) => {
                 mt="auto"
                 p={3}
                 borderRadius="12px"
-                bg="rgba(255, 255, 255, 0.1)"
+                bg={PROFILE_CONFIG.colors.background.badge}
                 color={PROFILE_CONFIG.colors.text.muted}
                 fontSize="sm"
                 transition="all 0.3s ease"
+                border={`1px solid ${PROFILE_CONFIG.colors.secondary}30`}
                 _hover={{
-                  bg: "rgba(255, 255, 255, 0.2)",
-                  color: PROFILE_CONFIG.colors.text.secondary,
+                  bg: `${PROFILE_CONFIG.colors.primary}20`,
+                  color: PROFILE_CONFIG.colors.primary,
+                  borderColor: PROFILE_CONFIG.colors.primary,
                 }}
                 onClick={onClose}
                 w="full"

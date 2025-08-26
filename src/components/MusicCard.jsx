@@ -12,7 +12,13 @@ import {
 import { Icon } from "@iconify/react";
 import { PROFILE_CONFIG } from "../config/profile";
 
-export const MusicCard = ({ song, onPlay, isPlaying, isLoading, isPlayable = true }) => {
+export const MusicCard = ({
+  song,
+  onPlay,
+  isPlaying,
+  isLoading,
+  isPlayable = true,
+}) => {
   const toast = useToast();
 
   const formatDuration = (duration) => {
@@ -124,30 +130,30 @@ export const MusicCard = ({ song, onPlay, isPlaying, isLoading, isPlayable = tru
           {/* 歌曲信息 */}
           <VStack spacing={2} align="stretch" flex="1">
             {/* 歌名 */}
-            <HStack spacing={1} align="flex-start">
+            <Flex align="flex-start" wrap="wrap" gap={1}>
               <Text
                 fontSize="lg"
                 fontWeight="bold"
                 color={PROFILE_CONFIG.colors.text.primary}
-                noOfLines={2}
                 title={song.name}
                 lineHeight="1.3"
-                flex="1"
+                display="inline"
               >
                 {song.name}
               </Text>
               <IconButton
                 aria-label="复制歌曲名"
                 icon={
-                  <Icon icon="mingcute:copy-2-line" width="14" height="14" />
+                  <Icon icon="mingcute:copy-2-line" width="12" height="12" />
                 }
                 size="xs"
                 variant="ghost"
                 color={PROFILE_CONFIG.colors.text.muted}
                 minW="auto"
-                h="auto"
-                p={1}
-                borderRadius="4px"
+                h="18px"
+                w="18px"
+                p={0}
+                borderRadius="3px"
                 opacity={0.6}
                 _hover={{
                   opacity: 1,
@@ -159,10 +165,9 @@ export const MusicCard = ({ song, onPlay, isPlaying, isLoading, isPlayable = tru
                 }}
                 transition="all 0.2s ease"
                 onClick={handleCopySongName}
-                mt={0}
-                ml={1}
+                flexShrink={0}
               />
-            </HStack>
+            </Flex>
 
             {/* 艺术家 */}
             <Text
@@ -199,11 +204,11 @@ export const MusicCard = ({ song, onPlay, isPlaying, isLoading, isPlayable = tru
           <Box position="absolute" bottom="16px" right="16px">
             <IconButton
               aria-label={
-                !isPlayable 
-                  ? "版权受限，无法播放" 
-                  : isPlaying 
-                    ? "正在播放" 
-                    : "播放"
+                !isPlayable
+                  ? "版权受限，无法播放"
+                  : isPlaying
+                  ? "正在播放"
+                  : "播放"
               }
               icon={
                 !isPlayable ? (
@@ -222,7 +227,7 @@ export const MusicCard = ({ song, onPlay, isPlaying, isLoading, isPlayable = tru
                 !isPlayable
                   ? "#9CA3AF" // 灰色表示不可播放
                   : isPlaying
-                  ? "#E53E3E" // 暂停按钮使用红色系
+                  ? "#2B4C9C"
                   : PROFILE_CONFIG.colors.primary
               }
               color="white"
@@ -231,20 +236,16 @@ export const MusicCard = ({ song, onPlay, isPlaying, isLoading, isPlayable = tru
                 !isPlayable
                   ? "0 4px 12px rgba(156, 163, 175, 0.4)"
                   : isPlaying
-                  ? "0 4px 12px rgba(229, 62, 62, 0.4)"
+                  ? "0 4px 12px rgba(54, 89, 185, 0.4)"
                   : "0 4px 12px rgba(54, 89, 185, 0.4)"
               }
               _hover={{
-                bg: !isPlayable
-                  ? "#9CA3AF"
-                  : isPlaying
-                  ? "#C53030" // 暂停按钮hover时的深红色
-                  : "#2B4C9C", // 播放按钮hover时的深蓝色
+                bg: !isPlayable ? "#9CA3AF" : isPlaying ? "#2B4C9C" : "#2B4C9C",
                 transform: !isPlayable ? "none" : "scale(1.1)",
                 boxShadow: !isPlayable
                   ? "0 4px 12px rgba(156, 163, 175, 0.4)"
                   : isPlaying
-                  ? "0 6px 16px rgba(229, 62, 62, 0.5)"
+                  ? "0 6px 16px rgba(54, 89, 185, 0.5)"
                   : "0 6px 16px rgba(54, 89, 185, 0.5)",
                 cursor: !isPlayable ? "not-allowed" : "pointer",
               }}
