@@ -30,7 +30,7 @@ export const SidebarToggle = () => {
       position="fixed"
       right={SIDEBAR_CONFIG.styles.position.right}
       top={SIDEBAR_CONFIG.styles.position.top}
-      zIndex="9999"
+      zIndex="1000"
       display="flex"
       alignItems="flex-start"
     >

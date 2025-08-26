@@ -9,6 +9,13 @@ export const SIDEBAR_CONFIG = {
       modal: "profile-card",
     },
     {
+      id: "gallery",
+      icon: "mingcute:pic-fill",
+      label: "Gallery",
+      type: "external",
+      url: "",
+    },
+    {
       id: "friendLink",
       icon: "mingcute:link-3-fill",
       label: "友链",
@@ -16,18 +23,17 @@ export const SIDEBAR_CONFIG = {
       modal: "friend-links",
     },
     {
+      id: "musicList",
+      icon: "mingcute:music-fill",
+      label: "歌单",
+      type: "modal",
+    },
+    {
       id: "github",
       icon: "mingcute:github-fill",
       label: "Github",
       type: "external", // 外部链接
       url: "https://github.com/KiloxGo",
-    },
-    {
-      id: "gallery",
-      icon: "mingcute:pic-fill",
-      label: "Gallery",
-      type: "external",
-      url: "",
     },
   ],
 
