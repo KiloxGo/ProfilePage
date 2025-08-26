@@ -24,6 +24,9 @@ export const MusicPlayer = ({ song, audioUrl, onClose }) => {
   const [volume, setVolume] = useState(70);
   const [isLoading, setIsLoading] = useState(true);
 
+  // 使用节流来优化时间更新
+  const timeUpdateThrottleRef = useRef(null);
+
   useEffect(() => {
     if (audioRef.current && audioUrl) {
       audioRef.current.src = audioUrl;
@@ -71,9 +74,15 @@ export const MusicPlayer = ({ song, audioUrl, onClose }) => {
     }
   };
 
+  // 节流时间更新，避免过于频繁的状态更新
   const handleTimeUpdate = () => {
     if (audioRef.current) {
-      setCurrentTime(audioRef.current.currentTime);
+      if (timeUpdateThrottleRef.current) {
+        clearTimeout(timeUpdateThrottleRef.current);
+      }
+      timeUpdateThrottleRef.current = setTimeout(() => {
+        setCurrentTime(audioRef.current.currentTime);
+      }, 100); // 100ms节流
     }
   };
 
@@ -105,56 +114,99 @@ export const MusicPlayer = ({ song, audioUrl, onClose }) => {
     return artists.join(" / ");
   };
 
-  // 音浪效果组件
-  const AudioWave = () => {
-    const [waveBars, setWaveBars] = useState(Array(36).fill(0));
+  // 音浪效果组件 - 高性能版本
+  const AudioWave = React.memo(() => {
+    const waveRef = useRef(null);
+    const animationRef = useRef(null);
+    const barsRef = useRef([]);
+    const isPlayingRef = useRef(isPlaying);
+
+    // 同步最新的播放状态
+    useEffect(() => {
+      isPlayingRef.current = isPlaying;
+    }, [isPlaying]);
 
     useEffect(() => {
-      let animationId;
+      if (!waveRef.current) return;
 
-      const animateWave = () => {
-        if (isPlaying) {
-          setWaveBars((prev) =>
-            prev.map((_, index) => {
-              const baseHeight = Math.random() * 0.6 + 0.1; // 0.1 to 0.7
-              const phase = (Date.now() / 200 + index * 0.5) % (2 * Math.PI);
-              return Math.sin(phase) * 0.3 + baseHeight;
-            })
-          );
-        } else {
-          setWaveBars(Array(36).fill(0.1));
+      const bars = waveRef.current.children;
+      barsRef.current = Array.from(bars);
+
+      let lastTime = 0;
+      const targetFPS = 24; // 降低到电影帧率，更加节能
+      const frameInterval = 1000 / targetFPS;
+
+      // 预计算一些值以提高性能
+      const barCount = barsRef.current.length;
+      const phaseStep = 0.5;
+      const timeScale = 1 / 200;
+
+      const animateWave = (currentTime) => {
+        if (currentTime - lastTime >= frameInterval) {
+          const playing = isPlayingRef.current;
+
+          barsRef.current.forEach((bar, index) => {
+            if (!bar) return;
+
+            if (playing) {
+              const baseHeight = Math.random() * 0.6 + 0.1;
+              const phase =
+                (currentTime * timeScale + index * phaseStep) % (2 * Math.PI);
+              const width = Math.sin(phase) * 0.3 + baseHeight;
+
+              // 使用transform而不是width改变，性能更好
+              bar.style.transform = `scaleX(${width})`;
+              bar.style.opacity = "0.8";
+            } else {
+              bar.style.transform = "scaleX(0.1)";
+              bar.style.opacity = "0.3";
+            }
+          });
+
+          lastTime = currentTime;
         }
-        animationId = requestAnimationFrame(animateWave);
+
+        animationRef.current = requestAnimationFrame(animateWave);
       };
 
-      animateWave();
-      return () => cancelAnimationFrame(animationId);
-    }, [isPlaying]);
+      animationRef.current = requestAnimationFrame(animateWave);
+
+      return () => {
+        if (animationRef.current) {
+          cancelAnimationFrame(animationRef.current);
+        }
+      };
+    }, []); // 移除isPlaying依赖，避免重复创建动画
 
     return (
       <VStack
+        ref={waveRef}
         spacing={0.5}
         justify="space-evenly"
         align="center"
         h="400px"
         w="60px"
       >
-        {waveBars.map((width, index) => (
+        {Array.from({ length: 36 }, (_, index) => (
           <Box
             key={index}
             h="1.5px"
-            w={`${width * 100}%`}
+            w="100%" // 固定宽度，通过transform缩放
             bg={PROFILE_CONFIG.colors.primary}
             borderRadius="1px"
-            transition="width 0.1s ease"
-            opacity={isPlaying ? 0.8 : 0.3}
+            opacity={0.3}
             minW="4px"
             maxW="50px"
+            transformOrigin="left center" // 设置缩放原点
+            willChange="transform, opacity" // 优化GPU加速
+            style={{
+              transform: "scaleX(0.1)", // 初始缩放
+            }}
           />
         ))}
       </VStack>
     );
-  };
+  });
 
   return (
     <Box
