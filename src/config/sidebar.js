@@ -5,7 +5,7 @@ export const SIDEBAR_CONFIG = {
       id: "profile",
       icon: "mingcute:user-4-fill",
       label: "自述", //TODO 这里以后会换个字体
-      type: "modal", // 弹窗类型
+      type: "modal",
       modal: "profile-card",
     },
     {
@@ -32,7 +32,7 @@ export const SIDEBAR_CONFIG = {
       id: "github",
       icon: "mingcute:github-fill",
       label: "Github",
-      type: "external", // 外部链接
+      type: "external",
       url: "https://github.com/KiloxGo",
     },
   ],
@@ -62,7 +62,6 @@ export const SIDEBAR_CONFIG = {
   },
 };
 
-// 按钮动作处理器
 export const handleButtonAction = (button) => {
   switch (button.type) {
     case "scroll":

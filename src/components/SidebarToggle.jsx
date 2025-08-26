@@ -42,6 +42,14 @@ export const SidebarToggle = () => {
           maxH="40vh" // 确保不与底部组件重叠
           overflowY="auto"
           py={5} // 为hover效果预留空间
+          sx={{
+            // 隐藏滚动条但保持滚动功能
+            "&::-webkit-scrollbar": {
+              display: "none",
+            },
+            "-ms-overflow-style": "none",
+            "scrollbar-width": "none",
+          }}
         >
           {SIDEBAR_CONFIG.buttons.map((button) => (
             <Box
