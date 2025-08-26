@@ -10,7 +10,7 @@ import SakanaWidgets from "./components/SakanaWidgets.jsx";
 const styles = {
   global: (props) => ({
     body: {
-      bg: mode("#8FC4FF", "#8FC4FF")(props), //TODO:好想找个舒适的颜色啊QwQ
+      bg: mode("#8FC4FF", "#8FC4FF")(props),
       color: mode("whiteAlpha.900", "whiteAlpha.900")(props),
     },
   }),

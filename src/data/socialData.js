@@ -1,14 +1,14 @@
 // 社交链接数据
 export const socialLinks = [
   {
-    name: "Blog",
-    icon: "mingcute:book-line",
-    href: "https://blog.kilox.top",
-  },
-  {
     name: "GitHub",
     icon: "mingcute:github-line",
     href: "https://github.com/KiloxGo",
+  },
+  {
+    name: "Blog",
+    icon: "mingcute:book-line",
+    href: "https://blog.kilox.top",
   },
   {
     name: "网易云音乐",

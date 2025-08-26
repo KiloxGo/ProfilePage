@@ -1,0 +1,65 @@
+// 侧边栏按钮配置
+export const SIDEBAR_CONFIG = {
+  buttons: [
+    {
+      id: "profile",
+      icon: "mingcute:user-4-fill",
+      label: "自述", //TODO 这里以后会换个字体
+      type: "scroll", // 滚动到页面部分
+      target: '[data-section="profile"]',
+    },
+    {
+      id: "github",
+      icon: "mingcute:github-fill",
+      label: "Github",
+      type: "external", // 外部链接
+      url: "https://github.com/KiloxGo",
+    },
+  ],
+
+  // 侧边栏样式配置
+  styles: {
+    position: {
+      right: "20px",
+      top: "25%",
+    },
+    button: {
+      width: "140px",
+      height: "50px",
+      borderRadius: "12px",
+      spacing: 4,
+    },
+    toggle: {
+      width: "45px",
+      height: "120px",
+      borderRadius: "12px",
+      marginTop: "20px",
+    },
+    animation: {
+      duration: "0.3s",
+      easing: "cubic-bezier(0.4, 0, 0.2, 1)",
+    },
+  },
+};
+
+// 按钮动作处理器
+export const handleButtonAction = (button) => {
+  switch (button.type) {
+    case "scroll":
+      document
+        .querySelector(button.target)
+        ?.scrollIntoView({ behavior: "smooth" });
+      break;
+
+    case "external":
+      window.open(button.url, "_blank");
+      break;
+
+    case "action":
+      button.action?.();
+      break;
+
+    default:
+      console.log(`未知的按钮类型: ${button.type}`);
+  }
+};
