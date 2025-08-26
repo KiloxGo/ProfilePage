@@ -11,6 +11,7 @@ import { PROFILE_CONFIG } from "../config/profile";
 import { SIDEBAR_CONFIG, handleButtonAction } from "../config/sidebar";
 import { ProfileCard } from "./ProfileCard";
 import { FriendLinksModal } from "./FriendLinksModal";
+import { MusicModal } from "./MusicModal";
 
 export const SidebarToggle = () => {
   const { isOpen, onToggle } = useDisclosure();
@@ -23,6 +24,11 @@ export const SidebarToggle = () => {
     isOpen: isFriendLinksOpen,
     onOpen: onFriendLinksOpen,
     onClose: onFriendLinksClose,
+  } = useDisclosure();
+  const {
+    isOpen: isMusicOpen,
+    onOpen: onMusicOpen,
+    onClose: onMusicClose,
   } = useDisclosure();
 
   return (
@@ -73,6 +79,8 @@ export const SidebarToggle = () => {
                     onProfileCardOpen();
                   } else if (button.modal === "friend-links") {
                     onFriendLinksOpen();
+                  } else if (button.id === "musicList") {
+                    onMusicOpen();
                   }
                 } else {
                   handleButtonAction(button);
@@ -158,6 +166,9 @@ export const SidebarToggle = () => {
         isOpen={isFriendLinksOpen}
         onClose={onFriendLinksClose}
       />
+
+      {/* 音乐弹窗 */}
+      <MusicModal isOpen={isMusicOpen} onClose={onMusicClose} />
     </Box>
   );
 };
