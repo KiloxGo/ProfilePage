@@ -2,22 +2,49 @@
 export const FRIEND_LINKS_CONFIG = {
   friends: [
     {
-      type: "github",
-      owner: "KodateMitsuru",
-      repo: "KodateMitsuru.github.io",
-    },
-    {
       type: "custom",
-      id: "custom-1",
+      id: "KM",
       github: {
         username: "KodateMitsuru",
         avatar: "https://github.com/KodateMitsuru.png",
         name: "KodateMitsuru",
       },
       project: {
-        name: "博客",
-        description: "KodateMitsuru的个人博客",
+        name: "KodateMitsuru",
+        description: "个人博客",
         url: "https://blog.kodatemitsuru.com/",
+        language: "Blog",
+        stars: null,
+      },
+    },
+    {
+      type: "custom",
+      id: "Req",
+      github: {
+        username: "Reqwey",
+        avatar: "https://github.com/Reqwey.png",
+        name: "Reqwey",
+      },
+      project: {
+        name: "Reqwey",
+        description: "个人主页",
+        url: "https://reqwey.me/",
+        language: "Blog",
+        stars: null,
+      },
+    },
+    {
+      type: "custom",
+      id: "1ji0o",
+      github: {
+        username: "1ji0o",
+        avatar: "https://github.com/1ji0o.png",
+        name: "1ji0o",
+      },
+      project: {
+        name: "1ji0o",
+        description: "个人博客",
+        url: "https://1ji0o.github.io/",
         language: "Blog",
         stars: null,
       },

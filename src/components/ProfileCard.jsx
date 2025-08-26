@@ -143,7 +143,7 @@ export const ProfileCard = ({ isOpen, onClose }) => {
                   color={PROFILE_CONFIG.colors.text.secondary}
                   lineHeight="1.2"
                 >
-                  {PROFILE_CONFIG.subtitle}
+                  自述
                 </Text>
 
                 <Text
@@ -153,7 +153,7 @@ export const ProfileCard = ({ isOpen, onClose }) => {
                   whiteSpace="pre-line"
                   maxW="400px"
                 >
-                  {PROFILE_CONFIG.description}
+                  {PROFILE_CONFIG.selfDescription}
                 </Text>
               </VStack>
 

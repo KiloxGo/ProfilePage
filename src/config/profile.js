@@ -5,7 +5,8 @@ export const PROFILE_CONFIG = {
   subtitle: "那就永远自由",
   description: "A Normal Student Majoring in\nElectrical Engineering",
   location: "Now in SJTU,Shanghai,China",
-
+  selfDescription:
+    "在下海交通大学不务正业的电气工程系男性，没有特长，强烈分享欲，在练吉他手，性取向正常，偶尔看番，喜欢EDM，这种地方应该不适合写自己的XP(",
   // 图片资源
   images: {
     avatar: "/avatar.png",
