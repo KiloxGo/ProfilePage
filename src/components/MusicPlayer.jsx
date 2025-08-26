@@ -108,8 +108,8 @@ export const MusicPlayer = ({ song, audioUrl, onClose }) => {
   return (
     <Box
       position="fixed"
-      left="20px"
-      top="20vh"
+      left="40px"
+      top="13vh"
       w="280px"
       bg={PROFILE_CONFIG.colors.background.card}
       backdropFilter="blur(20px)"
