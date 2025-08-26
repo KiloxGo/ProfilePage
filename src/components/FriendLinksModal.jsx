@@ -159,7 +159,8 @@ export const FriendLinksModal = ({ isOpen, onClose }) => {
         maxW="720px"
         maxH="80vh"
         position="relative"
-        overflow="hidden"
+        display="flex"
+        flexDirection="column"
       >
         {/* 关闭按钮 */}
         <IconButton
@@ -204,7 +205,27 @@ export const FriendLinksModal = ({ isOpen, onClose }) => {
           </Box>
         </ModalHeader>
 
-        <ModalBody px={8} pb={8}>
+        <ModalBody 
+          px={8} 
+          pb={8}
+          maxH="calc(80vh - 120px)" // 减去标题高度
+          overflowY="auto"
+          css={{
+            '&::-webkit-scrollbar': {
+              width: '6px',
+            },
+            '&::-webkit-scrollbar-track': {
+              background: 'transparent',
+            },
+            '&::-webkit-scrollbar-thumb': {
+              background: 'rgba(54, 89, 185, 0.3)',
+              borderRadius: '3px',
+            },
+            '&::-webkit-scrollbar-thumb:hover': {
+              background: 'rgba(54, 89, 185, 0.5)',
+            },
+          }}
+        >
           {renderContent()}
 
           {/* 底部装饰 */}
