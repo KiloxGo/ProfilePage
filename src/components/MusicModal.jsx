@@ -53,20 +53,21 @@ export const MusicModal = ({ isOpen, onClose }) => {
       const data = await response.json();
 
       if (data.code === 200 && data.songs) {
-        // 过滤掉版权受限的歌曲
-        const availableSongs = data.songs.filter((song, index) => {
+        // 处理所有歌曲，包括版权受限的
+        const formattedMusic = data.songs.map((song, index) => {
           const privilege = data.privileges?.[index];
-          return privilege && privilege.st === 0 && privilege.pl > 0;
+          const isPlayable = privilege && privilege.st === 0 && privilege.pl > 0;
+          
+          return {
+            id: song.id,
+            name: song.name,
+            artists: song.ar.map((artist) => artist.name),
+            album: song.al.name,
+            cover: song.al.picUrl,
+            duration: song.dt,
+            isPlayable: isPlayable, // 标记是否可播放
+          };
         });
-
-        const formattedMusic = availableSongs.map((song) => ({
-          id: song.id,
-          name: song.name,
-          artists: song.ar.map((artist) => artist.name),
-          album: song.al.name,
-          cover: song.al.picUrl,
-          duration: song.dt,
-        }));
 
         setMusicData(formattedMusic);
       } else {
@@ -82,6 +83,12 @@ export const MusicModal = ({ isOpen, onClose }) => {
   };
 
   const handlePlaySong = async (song) => {
+    // 检查歌曲是否可播放
+    if (!song.isPlayable) {
+      // 可以显示一个提示，告诉用户这首歌无法播放
+      return;
+    }
+
     if (currentPlaying?.id === song.id && audioUrl) {
       // 如果当前歌曲已经在播放，直接返回
       return;
@@ -160,6 +167,7 @@ export const MusicModal = ({ isOpen, onClose }) => {
             onPlay={() => handlePlaySong(song)}
             isPlaying={currentPlaying?.id === song.id}
             isLoading={loadingAudio && currentPlaying?.id === song.id}
+            isPlayable={song.isPlayable}
           />
         ))}
       </VStack>
@@ -170,16 +178,21 @@ export const MusicModal = ({ isOpen, onClose }) => {
     <>
       <Modal isOpen={isOpen} onClose={onClose} isCentered size="4xl">
         <ModalOverlay bg="rgba(0, 0, 0, 0.4)" backdropFilter="blur(8px)" />
-        <Flex justify="center" align="center" minH="100vh" p={4}>
-          <Flex align="stretch" maxW="900px" w="full">
+        <Box
+          position="fixed"
+          top="50%"
+          left="50%"
+          transform="translate(-50%, -50%)"
+          zIndex="modal"
+        >
+          <Flex align="stretch" maxW="900px" w="900px">
             {/* 主Modal内容 */}
-            <ModalContent
+            <Box
               bg={PROFILE_CONFIG.colors.background.card}
               backdropFilter="blur(20px)"
               border={`1px solid ${PROFILE_CONFIG.colors.secondary}40`}
               borderRadius="20px 0 0 20px"
               boxShadow="0 20px 40px rgba(54, 89, 185, 0.2), 0 8px 16px rgba(119, 187, 221, 0.15)"
-              m={0}
               maxH="80vh"
               flex="1"
               position="relative"
@@ -187,7 +200,7 @@ export const MusicModal = ({ isOpen, onClose }) => {
               flexDirection="column"
             >
               {/* 标题 */}
-              <ModalHeader pt={8} pb={4} px={8}>
+              <Box pt={8} pb={4} px={8}>
                 <Box display="flex" alignItems="center" gap={3}>
                   <Icon
                     icon="mingcute:music-fill"
@@ -203,9 +216,9 @@ export const MusicModal = ({ isOpen, onClose }) => {
                     {MUSIC_CONFIG.playlists[selectedPlaylist].name}
                   </Text>
                 </Box>
-              </ModalHeader>
+              </Box>
 
-              <ModalBody
+              <Box
                 px={8}
                 pb={8}
                 maxH="calc(80vh - 120px)"
@@ -227,8 +240,8 @@ export const MusicModal = ({ isOpen, onClose }) => {
                 }}
               >
                 {renderContent()}
-              </ModalBody>
-            </ModalContent>
+              </Box>
+            </Box>
 
             {/* 右侧标签栏 */}
             <VStack
@@ -308,7 +321,7 @@ export const MusicModal = ({ isOpen, onClose }) => {
               </Box>
             </VStack>
           </Flex>
-        </Flex>
+        </Box>
       </Modal>
 
       {/* 音乐播放器 */}

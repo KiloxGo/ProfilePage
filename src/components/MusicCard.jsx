@@ -12,7 +12,7 @@ import {
 import { Icon } from "@iconify/react";
 import { PROFILE_CONFIG } from "../config/profile";
 
-export const MusicCard = ({ song, onPlay, isPlaying, isLoading }) => {
+export const MusicCard = ({ song, onPlay, isPlaying, isLoading, isPlayable = true }) => {
   const toast = useToast();
 
   const formatDuration = (duration) => {
@@ -198,9 +198,17 @@ export const MusicCard = ({ song, onPlay, isPlaying, isLoading }) => {
           {/* 播放按钮 */}
           <Box position="absolute" bottom="16px" right="16px">
             <IconButton
-              aria-label={isPlaying ? "正在播放" : "播放"}
+              aria-label={
+                !isPlayable 
+                  ? "版权受限，无法播放" 
+                  : isPlaying 
+                    ? "正在播放" 
+                    : "播放"
+              }
               icon={
-                isLoading ? (
+                !isPlayable ? (
+                  <Icon icon="mingcute:lock-line" width="18" height="18" />
+                ) : isLoading ? (
                   <Spinner size="md" color={PROFILE_CONFIG.colors.primary} />
                 ) : isPlaying ? (
                   <Icon icon="mingcute:pause-fill" width="20" height="20" />
@@ -210,29 +218,42 @@ export const MusicCard = ({ song, onPlay, isPlaying, isLoading }) => {
               }
               size="md"
               variant="solid"
-              bg={isPlaying ? "#2B4C9C" : PROFILE_CONFIG.colors.primary}
+              bg={
+                !isPlayable
+                  ? "#9CA3AF" // 灰色表示不可播放
+                  : isPlaying
+                  ? "#E53E3E" // 暂停按钮使用红色系
+                  : PROFILE_CONFIG.colors.primary
+              }
               color="white"
               borderRadius="50%"
               boxShadow={
-                isPlaying
-                  ? "0 4px 12px rgba(54, 89, 185, 0.4)"
+                !isPlayable
+                  ? "0 4px 12px rgba(156, 163, 175, 0.4)"
+                  : isPlaying
+                  ? "0 4px 12px rgba(229, 62, 62, 0.4)"
                   : "0 4px 12px rgba(54, 89, 185, 0.4)"
               }
               _hover={{
-                bg: isPlaying
-                  ? "#2B4C9C" // 暂停按钮hover时的深红色
+                bg: !isPlayable
+                  ? "#9CA3AF"
+                  : isPlaying
+                  ? "#C53030" // 暂停按钮hover时的深红色
                   : "#2B4C9C", // 播放按钮hover时的深蓝色
-                transform: "scale(1.1)",
-                boxShadow: isPlaying
-                  ? "0 6px 16px rgba(54, 89, 185, 0.4)"
+                transform: !isPlayable ? "none" : "scale(1.1)",
+                boxShadow: !isPlayable
+                  ? "0 4px 12px rgba(156, 163, 175, 0.4)"
+                  : isPlaying
+                  ? "0 6px 16px rgba(229, 62, 62, 0.5)"
                   : "0 6px 16px rgba(54, 89, 185, 0.5)",
+                cursor: !isPlayable ? "not-allowed" : "pointer",
               }}
               _active={{
-                transform: "scale(0.95)",
+                transform: !isPlayable ? "none" : "scale(0.95)",
               }}
               transition="all 0.2s ease-in-out"
-              onClick={onPlay}
-              isDisabled={isLoading}
+              onClick={isPlayable ? onPlay : undefined}
+              isDisabled={!isPlayable || isLoading}
             />
           </Box>
 

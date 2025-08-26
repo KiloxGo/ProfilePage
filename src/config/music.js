@@ -18,7 +18,7 @@ export const MUSIC_CONFIG = {
       description: "精选好听的歌曲",
     },
     {
-      id: "14042168814", // 暂时使用同一个歌单，你可以替换为实际的JPOP歌单ID
+      id: "13592899660",
       name: "JPOP",
       color: "#4ECDC4",
       description: "日语流行音乐",
