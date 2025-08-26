@@ -9,9 +9,15 @@ import {
 import { Icon } from "@iconify/react";
 import { PROFILE_CONFIG } from "../config/profile";
 import { SIDEBAR_CONFIG, handleButtonAction } from "../config/sidebar";
+import { ProfileCard } from "./ProfileCard";
 
 export const SidebarToggle = () => {
   const { isOpen, onToggle } = useDisclosure();
+  const {
+    isOpen: isProfileCardOpen,
+    onOpen: onProfileCardOpen,
+    onClose: onProfileCardClose,
+  } = useDisclosure();
 
   return (
     <Box
@@ -47,7 +53,16 @@ export const SidebarToggle = () => {
               }}
               transition={`all ${SIDEBAR_CONFIG.styles.animation.duration} ${SIDEBAR_CONFIG.styles.animation.easing}`}
               cursor="pointer"
-              onClick={() => handleButtonAction(button)}
+              onClick={() => {
+                if (
+                  button.type === "modal" &&
+                  button.modal === "profile-card"
+                ) {
+                  onProfileCardOpen();
+                } else {
+                  handleButtonAction(button);
+                }
+              }}
             >
               <Box
                 px={4}
@@ -119,6 +134,9 @@ export const SidebarToggle = () => {
           transform={isOpen ? "translateX(2px)" : "translateX(-2px)"}
         />
       </Box>
+
+      {/* 个人名片弹窗 */}
+      <ProfileCard isOpen={isProfileCardOpen} onClose={onProfileCardClose} />
     </Box>
   );
 };

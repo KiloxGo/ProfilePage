@@ -5,8 +5,8 @@ export const SIDEBAR_CONFIG = {
       id: "profile",
       icon: "mingcute:user-4-fill",
       label: "自述", //TODO 这里以后会换个字体
-      type: "scroll", // 滚动到页面部分
-      target: '[data-section="profile"]',
+      type: "modal", // 弹窗类型
+      modal: "profile-card",
     },
     {
       id: "github",
@@ -14,6 +14,20 @@ export const SIDEBAR_CONFIG = {
       label: "Github",
       type: "external", // 外部链接
       url: "https://github.com/KiloxGo",
+    },
+    {
+      id: "friendLink",
+      icon: "mingcute:link-3-fill",
+      label: "友链",
+      type: "external",
+      url: "",
+    },
+    {
+      id: "gallery",
+      icon: "mingcute:pic-fill",
+      label: "Gallery",
+      type: "external",
+      url: "",
     },
   ],
 
