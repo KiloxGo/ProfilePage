@@ -10,6 +10,7 @@ import { Icon } from "@iconify/react";
 import { PROFILE_CONFIG } from "../config/profile";
 import { SIDEBAR_CONFIG, handleButtonAction } from "../config/sidebar";
 import { ProfileCard } from "./ProfileCard";
+import { FriendLinksModal } from "./FriendLinksModal";
 
 export const SidebarToggle = () => {
   const { isOpen, onToggle } = useDisclosure();
@@ -17,6 +18,11 @@ export const SidebarToggle = () => {
     isOpen: isProfileCardOpen,
     onOpen: onProfileCardOpen,
     onClose: onProfileCardClose,
+  } = useDisclosure();
+  const {
+    isOpen: isFriendLinksOpen,
+    onOpen: onFriendLinksOpen,
+    onClose: onFriendLinksClose,
   } = useDisclosure();
 
   return (
@@ -54,11 +60,12 @@ export const SidebarToggle = () => {
               transition={`all ${SIDEBAR_CONFIG.styles.animation.duration} ${SIDEBAR_CONFIG.styles.animation.easing}`}
               cursor="pointer"
               onClick={() => {
-                if (
-                  button.type === "modal" &&
-                  button.modal === "profile-card"
-                ) {
-                  onProfileCardOpen();
+                if (button.type === "modal") {
+                  if (button.modal === "profile-card") {
+                    onProfileCardOpen();
+                  } else if (button.modal === "friend-links") {
+                    onFriendLinksOpen();
+                  }
                 } else {
                   handleButtonAction(button);
                 }
@@ -137,6 +144,12 @@ export const SidebarToggle = () => {
 
       {/* 个人名片弹窗 */}
       <ProfileCard isOpen={isProfileCardOpen} onClose={onProfileCardClose} />
+
+      {/* 友链弹窗 */}
+      <FriendLinksModal
+        isOpen={isFriendLinksOpen}
+        onClose={onFriendLinksClose}
+      />
     </Box>
   );
 };

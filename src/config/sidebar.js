@@ -9,18 +9,18 @@ export const SIDEBAR_CONFIG = {
       modal: "profile-card",
     },
     {
+      id: "friendLink",
+      icon: "mingcute:link-3-fill",
+      label: "友链",
+      type: "modal",
+      modal: "friend-links",
+    },
+    {
       id: "github",
       icon: "mingcute:github-fill",
       label: "Github",
       type: "external", // 外部链接
       url: "https://github.com/KiloxGo",
-    },
-    {
-      id: "friendLink",
-      icon: "mingcute:link-3-fill",
-      label: "友链",
-      type: "external",
-      url: "",
     },
     {
       id: "gallery",
