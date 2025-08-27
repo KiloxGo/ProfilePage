@@ -25,7 +25,6 @@ export const fetchWakaTimeData = async () => {
 
     throw new Error("Failed to fetch WakaTime data");
   } catch (error) {
-    console.error("Failed to fetch WakaTime data:", error);
     return null;
   }
 };

@@ -30,7 +30,6 @@ class GitHubService {
       }
       return null;
     } catch (error) {
-      console.error("Failed to get user info:", error);
       return null;
     }
   }
@@ -40,10 +39,6 @@ class GitHubService {
     const user = await this.getCurrentUser();
     const isOwner = user && user.login === GITHUB_CONFIG.owner;
 
-    console.log(
-      `认证检查: 用户=${user?.login}, 仓库所有者=${GITHUB_CONFIG.owner}, 有权限=${isOwner}`
-    );
-
     return isOwner;
   }
 
@@ -51,10 +46,6 @@ class GitHubService {
   checkIsOwner(username) {
     if (!username) return false;
     const isOwner = username === GITHUB_CONFIG.owner;
-    console.log(
-      `[Zone Auth] Checking if user ${username} is owner of ${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}`
-    );
-    console.log(`[Zone Auth] Is owner: ${isOwner}`);
     return isOwner;
   }
 
@@ -84,7 +75,6 @@ class GitHubService {
       }
       return [];
     } catch (error) {
-      console.error("Failed to fetch posts:", error);
       return [];
     }
   }
@@ -126,7 +116,6 @@ class GitHubService {
       }
       throw new Error("Failed to create post");
     } catch (error) {
-      console.error("Failed to create post:", error);
       throw error;
     }
   }
@@ -166,7 +155,6 @@ class GitHubService {
       }
       throw new Error("Failed to upload image");
     } catch (error) {
-      console.error("Failed to upload image:", error);
       throw error;
     }
   }
@@ -230,7 +218,6 @@ class GitHubService {
 
       return true;
     } catch (error) {
-      console.error("OAuth callback failed:", error);
       return false;
     }
   }

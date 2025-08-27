@@ -40,8 +40,8 @@ export const MusicPlayer = ({ song, audioUrl, onClose }) => {
             setIsPlaying(true);
             setIsLoading(false);
           })
-          .catch((error) => {
-            console.log("Auto-play prevented:", error);
+          .catch(() => {
+            // 自动播放被阻止时静默失败
             setIsLoading(false);
           });
       }
@@ -66,8 +66,8 @@ export const MusicPlayer = ({ song, audioUrl, onClose }) => {
             .then(() => {
               setIsPlaying(true);
             })
-            .catch((error) => {
-              console.error("Play failed:", error);
+            .catch(() => {
+              // 播放失败静默处理
             });
         }
       }
@@ -418,8 +418,7 @@ export const MusicPlayer = ({ song, audioUrl, onClose }) => {
           </HStack>
         </VStack>
 
-        {/* 右侧：音浪效果 */}
-        {/* TODO 记得换个更好的波动逻辑 */}
+  {/* 右侧：音浪效果 */}
         <Box
           w="80px"
           minH="450px"

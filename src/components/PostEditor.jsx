@@ -161,8 +161,7 @@ export function PostEditor({ isOpen, onClose, onSubmit }) {
       });
 
       handleClose();
-    } catch (error) {
-      console.error("Publish failed:", error);
+  } catch (error) {
       toast({
         title: "发布失败",
         description: "请检查网络连接后重试",

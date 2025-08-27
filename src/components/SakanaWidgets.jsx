@@ -39,7 +39,7 @@ function SakanaWidgets() {
           rightWidget.mount(rightElRef.current);
         }
       } catch (error) {
-        console.error("Failed to load or mount SakanaWidget:", error);
+        // 组件加载失败，静默忽略
       }
     };
 

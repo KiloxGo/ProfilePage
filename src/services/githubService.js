@@ -28,7 +28,6 @@ export const getGitHubRepo = async (owner, repo) => {
       },
     };
   } catch (error) {
-    console.error("Error fetching GitHub repo:", error);
     return null;
   }
 };
@@ -55,7 +54,6 @@ export const getGitHubUser = async (username) => {
       followers: data.followers,
     };
   } catch (error) {
-    console.error("Error fetching GitHub user:", error);
     return null;
   }
 };

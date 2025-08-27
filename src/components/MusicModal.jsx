@@ -74,8 +74,7 @@ export const MusicModal = ({ isOpen, onClose }) => {
       } else {
         throw new Error("Invalid response format");
       }
-    } catch (err) {
-      console.error("Failed to load playlist:", err);
+  } catch (err) {
       setError("加载歌单失败");
       setMusicData([]);
     } finally {
@@ -115,8 +114,7 @@ export const MusicModal = ({ isOpen, onClose }) => {
       } else {
         throw new Error("Song URL not available");
       }
-    } catch (err) {
-      console.error("Failed to load song URL:", err);
+  } catch (err) {
       setCurrentPlaying(null);
       // 可以显示错误提示
     } finally {

@@ -9,8 +9,7 @@ export function LoginButton({ isAuthenticated, onAuthChange }) {
   const handleOAuthLogin = () => {
     try {
       githubService.startOAuthFlow();
-    } catch (error) {
-      console.error("OAuth login failed:", error);
+  } catch (error) {
       toast({
         title: "登录失败",
         description: "请检查网络连接",

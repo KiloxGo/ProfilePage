@@ -4,7 +4,7 @@ export const SIDEBAR_CONFIG = {
     {
       id: "profile",
       icon: "mingcute:user-4-fill",
-      label: "自述", //TODO 这里以后会换个字体
+  label: "自述",
       type: "modal",
       modal: "profile-card",
     },
@@ -85,6 +85,6 @@ export const handleButtonAction = (button, navigate) => {
       break;
 
     default:
-      console.log(`未知的按钮类型: ${button.type}`);
+      // 未知的按钮类型，忽略
   }
 };

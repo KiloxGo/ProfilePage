@@ -15,7 +15,6 @@ export const useWakaTime = () => {
         setWakaTimeData(data);
       } catch (err) {
         setError(err);
-        console.error("Error loading WakaTime data:", err);
       } finally {
         setLoading(false);
       }

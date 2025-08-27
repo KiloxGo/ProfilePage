@@ -38,7 +38,7 @@ function ZonePage() {
       const postsData = await githubService.getPosts();
       setPosts(postsData);
     } catch (error) {
-      console.error("Failed to load posts:", error);
+      // 忽略加载错误，UI 上可选择展示占位
     } finally {
       setLoading(false);
     }
@@ -53,7 +53,7 @@ function ZonePage() {
         setUser(userData);
       }
     } catch (error) {
-      console.error("Auth check failed:", error);
+      // 忽略认证检查错误
     }
   };
 
@@ -69,11 +69,9 @@ function ZonePage() {
         postData.content,
         postData.images
       );
-      // 重新加载动态列表
       await loadPosts();
       onClose();
     } catch (error) {
-      console.error("Failed to create post:", error);
       alert("发布失败，请重试");
     }
   };

@@ -43,7 +43,6 @@ export const MusicCard = ({
         position: "top",
       });
     } catch (err) {
-      console.error("复制失败:", err);
       toast({
         title: "复制失败",
         description: "无法复制到剪贴板",

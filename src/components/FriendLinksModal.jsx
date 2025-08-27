@@ -90,7 +90,6 @@ export const FriendLinksModal = ({ isOpen, onClose }) => {
 
       setFriendsData(allFriendsData);
     } catch (err) {
-      console.error("Failed to load friends data:", err);
       setError("加载友链数据失败");
       // API失败时显示空数据
       setFriendsData([]);
