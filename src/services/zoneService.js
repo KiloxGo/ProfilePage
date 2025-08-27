@@ -185,16 +185,17 @@ class GitHubService {
 
   // GitHub OAuth 登录
   startOAuthFlow() {
-    const redirectUri = encodeURIComponent(
-      `${window.location.origin}${window.location.pathname}`
-    );
-    const scope = "repo";
+    // 固定回调到根路径，确保 GitHub Pages 能返回 index.html 而不是 404
+    const FIXED_REDIRECT = "https://profile.kilox.top/"; // 必须与 OAuth App Authorization callback URL 完全一致
+    const redirectUri = encodeURIComponent(FIXED_REDIRECT);
+    const scope = "repo"; // 如仅需公开信息，可改为 "read:user"
     const state = Math.random().toString(36).substring(7); // 随机状态字符串
 
-    // 保存状态到 localStorage 用于验证
     localStorage.setItem("oauth_state", state);
 
+    // 也可以去掉 redirect_uri 参数（GitHub 会用配置的那个），这里保留以显式保证一致
     const url = `https://github.com/login/oauth/authorize?client_id=${GITHUB_CONFIG.clientId}&redirect_uri=${redirectUri}&scope=${scope}&state=${state}`;
+    console.debug("OAuth authorize URL:", decodeURIComponent(url));
     window.location.href = url;
   }
 
