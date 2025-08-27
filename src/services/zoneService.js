@@ -10,6 +10,10 @@ class GitHubService {
   setToken(token) {
     this.token = token;
     localStorage.setItem("github_token", token);
+    // 通知前端刷新认证状态（同一标签页自定义事件 + 其他标签页 storage 事件）
+    try {
+      window.dispatchEvent(new Event("github_token_updated"));
+    } catch (e) {}
   }
 
   // 获取当前用户信息

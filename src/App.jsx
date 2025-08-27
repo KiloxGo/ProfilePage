@@ -1,7 +1,7 @@
 import { Container, Flex, Text, HStack, VStack, Box } from "@chakra-ui/react";
 import { Icon } from "@iconify/react";
-import { Routes, Route } from "react-router-dom";
-import { Suspense } from "react";
+import { Routes, Route, useNavigate } from "react-router-dom";
+import { Suspense, useEffect } from "react";
 import { motion } from "framer-motion";
 import "./index.css";
 import { ProfileImage } from "./components/ProfileImage";
@@ -110,6 +110,32 @@ function LoadingScreen() {
 }
 
 function App() {
+  const navigate = useNavigate();
+
+  // 在任意页面挂载时检查 OAuth 回调（GitHub 只能回调到根路径）
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get("code");
+    const state = params.get("state");
+    if (code && state) {
+      import("./services/zoneService").then(({ githubService }) => {
+        githubService
+          .handleOAuthCallback(code, state)
+          .then((ok) => {
+            // 清理 URL 参数
+            window.history.replaceState({}, document.title, "/");
+            if (ok) {
+              // 回调成功后跳转到 /zone
+              navigate("/zone", { replace: true });
+            }
+          })
+          .catch(() => {
+            window.history.replaceState({}, document.title, "/");
+          });
+      });
+    }
+  }, [navigate]);
+
   return (
     <Box minH="100vh" bg="#8FC4FF" position="relative" zIndex={1}>
       <Suspense fallback={<LoadingScreen />}>

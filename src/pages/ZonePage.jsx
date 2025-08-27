@@ -28,8 +28,21 @@ function ZonePage() {
   useEffect(() => {
     loadPosts();
     checkAuth();
-    // 检查 OAuth 回调
-    githubService.checkOAuthCallback();
+  }, []);
+
+  // 监听 token 变更（跨 Tab 的 storage 事件 + 同 Tab 自定义事件）以刷新认证状态
+  useEffect(() => {
+    const handler = (e) => {
+      if (!e || e.type === "github_token_updated" || e.key === "github_token") {
+        checkAuth();
+      }
+    };
+    window.addEventListener("storage", handler);
+    window.addEventListener("github_token_updated", handler);
+    return () => {
+      window.removeEventListener("storage", handler);
+      window.removeEventListener("github_token_updated", handler);
+    };
   }, []);
 
   const loadPosts = async () => {
