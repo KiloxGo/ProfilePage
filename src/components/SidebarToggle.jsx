@@ -7,6 +7,8 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { Icon } from "@iconify/react";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useEffect } from "react";
 import { PROFILE_CONFIG } from "../config/profile";
 import { SIDEBAR_CONFIG, handleButtonAction } from "../config/sidebar";
 import { ProfileCard } from "./ProfileCard";
@@ -14,7 +16,9 @@ import { FriendLinksModal } from "./FriendLinksModal";
 import { MusicModal } from "./MusicModal";
 
 export const SidebarToggle = () => {
-  const { isOpen, onToggle } = useDisclosure();
+  const { isOpen, onToggle, onClose } = useDisclosure();
+  const navigate = useNavigate();
+  const location = useLocation();
   const {
     isOpen: isProfileCardOpen,
     onOpen: onProfileCardOpen,
@@ -30,6 +34,11 @@ export const SidebarToggle = () => {
     onOpen: onMusicOpen,
     onClose: onMusicClose,
   } = useDisclosure();
+
+  // 路由变化时关闭侧边栏
+  useEffect(() => {
+    onClose();
+  }, [location.pathname, onClose]);
 
   return (
     <Box
@@ -53,8 +62,8 @@ export const SidebarToggle = () => {
             "&::-webkit-scrollbar": {
               display: "none",
             },
-            "-ms-overflow-style": "none",
-            "scrollbar-width": "none",
+            msOverflowStyle: "none",
+            scrollbarWidth: "none",
           }}
         >
           {SIDEBAR_CONFIG.buttons.map((button) => (
@@ -83,7 +92,7 @@ export const SidebarToggle = () => {
                     onMusicOpen();
                   }
                 } else {
-                  handleButtonAction(button);
+                  handleButtonAction(button, navigate);
                 }
               }}
             >

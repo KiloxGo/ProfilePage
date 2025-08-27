@@ -5,7 +5,6 @@ import App from "./App.jsx";
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import { mode } from "@chakra-ui/theme-tools";
 import { BrowserRouter } from "react-router-dom";
-import SakanaWidgets from "./components/SakanaWidgets.jsx";
 
 const styles = {
   global: (props) => ({
@@ -28,7 +27,6 @@ createRoot(document.getElementById("root")).render(
     <BrowserRouter>
       <ChakraProvider theme={theme}>
         <App />
-        <SakanaWidgets />
       </ChakraProvider>
     </BrowserRouter>
   </StrictMode>

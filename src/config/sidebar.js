@@ -9,11 +9,11 @@ export const SIDEBAR_CONFIG = {
       modal: "profile-card",
     },
     {
-      id: "gallery",
-      icon: "mingcute:pic-fill",
-      label: "Gallery",
-      type: "external",
-      url: "",
+      id: "zone",
+      icon: "mingcute:time-line",
+      label: "动态",
+      type: "route",
+      route: "/zone",
     },
     {
       id: "friendLink",
@@ -62,7 +62,7 @@ export const SIDEBAR_CONFIG = {
   },
 };
 
-export const handleButtonAction = (button) => {
+export const handleButtonAction = (button, navigate) => {
   switch (button.type) {
     case "scroll":
       document
@@ -72,6 +72,12 @@ export const handleButtonAction = (button) => {
 
     case "external":
       window.open(button.url, "_blank");
+      break;
+
+    case "route":
+      if (navigate) {
+        navigate(button.route);
+      }
       break;
 
     case "action":

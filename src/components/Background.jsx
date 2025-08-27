@@ -3,21 +3,24 @@ import { useEffect, useRef, useState } from "react";
 import { PROFILE_CONFIG } from "../config/profile";
 
 export function Background() {
-  const [randomImage] = useState(
-    PROFILE_CONFIG.backgroundConfig.images[
-      Math.floor(Math.random() * PROFILE_CONFIG.backgroundConfig.images.length)
-    ]
-  );
+  const [randomImage] = useState(() => {
+    const images = PROFILE_CONFIG.backgroundConfig.images;
+    return images[Math.floor(Math.random() * images.length)];
+  });
   const [isLoading, setIsLoading] = useState(true);
   const backgroundRef = useRef(null);
+
+  console.log("Background component mounted, selected image:", randomImage);
 
   const updateBackgroundImage = (imageUrl = randomImage) => {
     const background = backgroundRef.current;
     if (background) {
       setIsLoading(true);
+      console.log(`Loading background image: ${imageUrl}`);
       const img = new Image();
       img.onload = () => {
         background.style.backgroundImage = `url(${imageUrl})`;
+        console.log(`Background image loaded successfully: ${imageUrl}`);
         setIsLoading(false);
       };
       img.onerror = () => {
@@ -29,30 +32,9 @@ export function Background() {
   };
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            updateBackgroundImage();
-            observer.disconnect();
-          }
-        });
-      },
-      {
-        rootMargin: "0px",
-        threshold: 0.1,
-      }
-    );
-
-    const background = backgroundRef.current;
-    if (background) {
-      observer.observe(background);
-    }
-
-    return () => {
-      observer.disconnect();
-    };
-  }, [randomImage]);
+    // 直接更新背景图片，不使用IntersectionObserver
+    updateBackgroundImage();
+  }, []);
 
   return (
     <motion.div
@@ -63,15 +45,13 @@ export function Background() {
         top: 0,
         right: 0,
         bottom: 0,
-        width: "auto",
-        maxWidth: "25vw",
+        width: "25vw",
         height: "100vh",
-        aspectRatio: "0.5",
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
         zIndex: -1,
-        backgroundColor: isLoading ? "rgba(240, 240, 240, 0.3)" : "transparent",
+        backgroundColor: isLoading ? "rgba(240, 240, 240, 0.5)" : "transparent",
         transition: "background-color 0.3s ease",
       }}
       initial={{ opacity: 0 }}

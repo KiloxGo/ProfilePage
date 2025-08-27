@@ -1,11 +1,20 @@
 import { Box, Flex } from "@chakra-ui/react";
 import { Icon } from "@iconify/react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { PROFILE_CONFIG } from "../config/profile";
 
 export const HomeButton = () => {
-  //TODO 实际上这里以后用于跳到main,暂时不作修改
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const handleHomeClick = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    if (location.pathname === "/") {
+      // 如果已经在主页，则滚动到顶部
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      // 否则导航到主页
+      navigate("/");
+    }
   };
 
   return (
