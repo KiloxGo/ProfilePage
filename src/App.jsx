@@ -8,6 +8,7 @@ import { StudyingSection } from "./components/StudyingSection";
 import { WakaTimeStats } from "./components/WakaTimeStats";
 import { HomeButton } from "./components/HomeButton";
 import { SidebarToggle } from "./components/SidebarToggle";
+import { Background } from "./components/Background";
 import { useWakaTime } from "./hooks/useWakaTime";
 import { useImageLoading } from "./hooks/useImageLoading";
 import { PROFILE_CONFIG } from "./config/profile";
@@ -18,6 +19,9 @@ function App() {
 
   return (
     <>
+      {/* 随机背景 */}
+      <Background />
+
       {/* 主页按钮 */}
       <HomeButton />
 

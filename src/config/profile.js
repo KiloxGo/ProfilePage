@@ -13,6 +13,26 @@ export const PROFILE_CONFIG = {
     background: "/boximage.png",
   },
 
+  // 背景配置
+  backgroundConfig: {
+    images: [
+      "https://cdn.tnxg.top/images/cover/119207866_p0_nst.png",
+      "https://cdn.tnxg.top/images/cover/tomori_nst.png",
+      "https://cdn.tnxg.top/images/cover/MyGo!!!!!_Kaisou_Soyo.nst.png",
+      "https://bestdori.com/assets/jp/characters/resourceset/res036012_rip/trim_normal.png",
+      "https://bestdori.com/assets/jp/characters/resourceset/res036010_rip/trim_normal.png",
+      "https://bestdori.com/assets/jp/characters/resourceset/res036010_rip/trim_after_training.png",
+      "https://bestdori.com/assets/jp/characters/resourceset/res038009_rip/trim_after_training.png",
+      "https://bestdori.com/assets/jp/characters/resourceset/res038008_rip/trim_after_training.png",
+      "https://bestdori.com/assets/jp/characters/resourceset/res037011_rip/trim_after_training.png",
+      "https://bestdori.com/assets/cn/characters/resourceset/res037008_rip/trim_after_training.png",
+      "https://bestdori.com/assets/jp/characters/resourceset/res039011_rip/trim_after_training.png",
+      "https://bestdori.com/assets/jp/characters/resourceset/res040011_rip/trim_after_training.png",
+      "https://bestdori.com/assets/cn/characters/resourceset/res040005_rip/trim_after_training.png",
+    ],
+    opacity: 0.5,
+  },
+
   // 样式配置
   colors: {
     primary: "#3659B9",
