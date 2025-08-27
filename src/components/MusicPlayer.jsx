@@ -418,7 +418,7 @@ export const MusicPlayer = ({ song, audioUrl, onClose }) => {
           </HStack>
         </VStack>
 
-  {/* 右侧：音浪效果 */}
+        {/* 右侧：音浪效果 */}
         <Box
           w="80px"
           minH="450px"

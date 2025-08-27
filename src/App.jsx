@@ -35,8 +35,7 @@ function HomePage() {
       {/* 主页按钮 */}
       <HomeButton />
 
-      {/* 侧边栏切换 */}
-      <SidebarToggle />
+      {/* 侧边栏切换已移至 App 顶层以保证音乐播放器跨路由保持 */}
 
       <Container maxW={"container.lg"} py={70}>
         <VStack spacing={20} align="stretch">
@@ -119,6 +118,8 @@ function App() {
           <Route path="/zone" element={<ZonePage />} />
         </Routes>
       </Suspense>
+      {/* 全局 SidebarToggle（包含 MusicModal 和 MusicPlayer），不随路由卸载 */}
+      <SidebarToggle />
     </Box>
   );
 }

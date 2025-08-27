@@ -4,7 +4,7 @@ export const SIDEBAR_CONFIG = {
     {
       id: "profile",
       icon: "mingcute:user-4-fill",
-  label: "自述",
+      label: "自述",
       type: "modal",
       modal: "profile-card",
     },
@@ -33,7 +33,7 @@ export const SIDEBAR_CONFIG = {
       icon: "mingcute:github-fill",
       label: "Github",
       type: "external",
-      url: "https://github.com/KiloxGo",
+      url: "https://github.com/KiloxGo/ProfilePage",
     },
   ],
 
@@ -85,6 +85,6 @@ export const handleButtonAction = (button, navigate) => {
       break;
 
     default:
-      // 未知的按钮类型，忽略
+    // 未知的按钮类型，忽略
   }
 };

@@ -10,12 +10,11 @@ export function Background() {
   const [isLoading, setIsLoading] = useState(true);
   const backgroundRef = useRef(null);
 
-
   const updateBackgroundImage = (imageUrl = randomImage) => {
     const background = backgroundRef.current;
     if (background) {
       setIsLoading(true);
-  // 加载背景图片
+      // 加载背景图片
       const img = new Image();
       img.onload = () => {
         background.style.backgroundImage = `url(${imageUrl})`;
