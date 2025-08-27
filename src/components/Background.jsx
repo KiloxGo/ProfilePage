@@ -50,7 +50,9 @@ export function Background() {
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
-        zIndex: -1,
+        // 之前使用 zIndex: -1 会被父级具有背景色的容器遮挡，改为 0 并禁用指针事件
+        zIndex: 0,
+        pointerEvents: "none",
         backgroundColor: isLoading ? "rgba(240, 240, 240, 0.5)" : "transparent",
         transition: "background-color 0.3s ease",
       }}

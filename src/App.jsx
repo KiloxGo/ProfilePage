@@ -112,7 +112,7 @@ function LoadingScreen() {
 
 function App() {
   return (
-    <Box minH="100vh" bg="#8FC4FF">
+    <Box minH="100vh" bg="#8FC4FF" position="relative" zIndex={1}>
       <Suspense fallback={<LoadingScreen />}>
         <Routes>
           <Route path="/" element={<HomePage />} />
