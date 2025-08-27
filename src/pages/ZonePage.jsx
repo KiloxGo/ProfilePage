@@ -16,6 +16,7 @@ import { AuthSection } from "../components/AuthSection";
 import { LoginButton } from "../components/LoginButton";
 import { PostEditor } from "../components/PostEditor";
 import { Timeline } from "../components/Timeline";
+import { PatInputModal } from "../components/PatInputModal";
 import { githubService } from "../services/zoneService";
 
 function ZonePage() {
@@ -24,6 +25,11 @@ function ZonePage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { 
+    isOpen: isPatModalOpen, 
+    onOpen: onPatModalOpen, 
+    onClose: onPatModalClose 
+  } = useDisclosure();
 
   useEffect(() => {
     loadPosts();
@@ -44,6 +50,17 @@ function ZonePage() {
       window.removeEventListener("github_token_updated", handler);
     };
   }, []);
+
+  // 监听 PAT 输入模态框显示事件
+  useEffect(() => {
+    const handleShowPatModal = () => {
+      onPatModalOpen();
+    };
+    window.addEventListener("show_pat_input_modal", handleShowPatModal);
+    return () => {
+      window.removeEventListener("show_pat_input_modal", handleShowPatModal);
+    };
+  }, [onPatModalOpen]);
 
   const loadPosts = async () => {
     try {
@@ -87,6 +104,11 @@ function ZonePage() {
     } catch (error) {
       alert("发布失败，请重试");
     }
+  };
+
+  const handleTokenSet = (token) => {
+    githubService.setToken(token);
+    checkAuth(); // 重新检查认证状态
   };
 
   return (
@@ -190,6 +212,13 @@ function ZonePage() {
         isOpen={isOpen}
         onClose={onClose}
         onSubmit={handlePostSubmit}
+      />
+
+      {/* PAT 输入模态框 */}
+      <PatInputModal
+        isOpen={isPatModalOpen}
+        onClose={onPatModalClose}
+        onTokenSet={handleTokenSet}
       />
     </motion.div>
   );

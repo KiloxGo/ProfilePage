@@ -213,10 +213,8 @@ class GitHubService {
       }
 
       // 由于是静态网站，我们需要使用 GitHub 的设备流程或者使用临时的代理服务
-      // 这里我们暂时使用 Personal Access Token 的方式
-      alert(
-        "OAuth 回调成功！请在开发者工具控制台中设置你的 Personal Access Token"
-      );
+      // 这里我们触发显示 PAT 输入模态框
+      this.triggerPatInputModal();
 
       // 清理状态
       localStorage.removeItem("oauth_state");
@@ -225,6 +223,12 @@ class GitHubService {
     } catch (error) {
       return false;
     }
+  }
+
+  // 触发显示 PAT 输入模态框
+  triggerPatInputModal() {
+    // 通过自定义事件通知组件显示 PAT 输入模态框
+    window.dispatchEvent(new Event("show_pat_input_modal"));
   }
 
   // 检查 URL 中是否有 OAuth 回调参数
