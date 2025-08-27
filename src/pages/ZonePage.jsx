@@ -25,10 +25,10 @@ function ZonePage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { 
-    isOpen: isPatModalOpen, 
-    onOpen: onPatModalOpen, 
-    onClose: onPatModalClose 
+  const {
+    isOpen: isPatModalOpen,
+    onOpen: onPatModalOpen,
+    onClose: onPatModalClose,
   } = useDisclosure();
 
   useEffect(() => {

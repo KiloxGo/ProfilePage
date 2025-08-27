@@ -38,7 +38,8 @@ export function PatInputModal({ isOpen, onClose, onTokenSet }) {
     if (!token.startsWith("ghp_") && !token.startsWith("github_pat_")) {
       toast({
         title: "Token 格式错误",
-        description: "Personal Access Token 应该以 'ghp_' 或 'github_pat_' 开头",
+        description:
+          "Personal Access Token 应该以 'ghp_' 或 'github_pat_' 开头",
         status: "error",
         duration: 3000,
         isClosable: true,
@@ -47,7 +48,7 @@ export function PatInputModal({ isOpen, onClose, onTokenSet }) {
     }
 
     setIsLoading(true);
-    
+
     try {
       // 测试 token 是否有效
       const response = await fetch("https://api.github.com/user", {
@@ -94,7 +95,10 @@ export function PatInputModal({ isOpen, onClose, onTokenSet }) {
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>
-          <Icon icon="mingcute:key-line" style={{ display: "inline", marginRight: "8px" }} />
+          <Icon
+            icon="mingcute:key-line"
+            style={{ display: "inline", marginRight: "8px" }}
+          />
           设置 Personal Access Token
         </ModalHeader>
         <ModalBody>
@@ -102,7 +106,8 @@ export function PatInputModal({ isOpen, onClose, onTokenSet }) {
             <Alert status="info">
               <AlertIcon />
               <Text fontSize="sm">
-                由于这是纯前端项目，需要您提供 GitHub Personal Access Token 来完成认证。
+                由于这是纯前端项目，需要您提供 GitHub Personal Access Token
+                来完成认证。
               </Text>
             </Alert>
 
@@ -127,9 +132,7 @@ export function PatInputModal({ isOpen, onClose, onTokenSet }) {
                 <Text fontSize="xs">
                   3. 选择权限：<Code fontSize="xs">repo</Code>（仓库权限）
                 </Text>
-                <Text fontSize="xs">
-                  4. 点击 "Generate token" 生成
-                </Text>
+                <Text fontSize="xs">4. 点击 "Generate token" 生成</Text>
                 <Text fontSize="xs">
                   5. 复制生成的 Token 并粘贴到下方输入框
                 </Text>
