@@ -9,18 +9,18 @@ export const SIDEBAR_CONFIG = {
       modal: "profile-card",
     },
     {
-      id: "zone",
-      icon: "mingcute:time-line",
-      label: "动态",
-      type: "route",
-      route: "/zone",
-    },
-    {
       id: "friendLink",
       icon: "mingcute:link-3-fill",
       label: "友链",
       type: "modal",
       modal: "friend-links",
+    },
+    {
+      id: "animeList",
+      icon: "mingcute:bilibili-fill",
+      label: "动画",
+      type: "route",
+      route: "/anime",
     },
     {
       id: "musicList",
@@ -34,6 +34,13 @@ export const SIDEBAR_CONFIG = {
       label: "Github",
       type: "external",
       url: "https://github.com/KiloxGo/ProfilePage",
+    },
+    {
+      id: "zone",
+      icon: "mingcute:time-line",
+      label: "动态",
+      type: "route",
+      route: "/zone",
     },
   ],
 

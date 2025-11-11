@@ -17,6 +17,7 @@ import { useWakaTime } from "./hooks/useWakaTime";
 import { useImageLoading } from "./hooks/useImageLoading";
 import { PROFILE_CONFIG } from "./config/profile";
 import ZonePage from "./pages/ZonePage";
+import AnimePage from "./pages/AnimePage";
 
 function HomePage() {
   const { wakaTimeData, loading } = useWakaTime();
@@ -142,6 +143,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/zone" element={<ZonePage />} />
+          <Route path="/anime" element={<AnimePage />} />
         </Routes>
       </Suspense>
       {/* 全局 SidebarToggle（包含 MusicModal 和 MusicPlayer），不随路由卸载 */}
