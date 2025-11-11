@@ -113,6 +113,16 @@ function LoadingScreen() {
 function App() {
   const navigate = useNavigate();
 
+  // 处理 GitHub Pages SPA 重定向
+  useEffect(() => {
+    const redirect = sessionStorage.getItem("spa-redirect");
+    if (redirect) {
+      sessionStorage.removeItem("spa-redirect");
+      navigate(redirect, { replace: true });
+      return;
+    }
+  }, [navigate]);
+
   // 在任意页面挂载时检查 OAuth 回调（GitHub 只能回调到根路径）
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
