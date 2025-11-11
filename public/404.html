@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Redirecting...</title>
+    <script type="text/javascript">
+      // Redirect all GitHub Pages 404 requests back to the SPA entry point.
+      // Based on https://github.com/rafgraph/spa-github-pages
+      (() => {
+        var redirect = sessionStorage.getItem("spa-redirect");
+        if (redirect) {
+          sessionStorage.removeItem("spa-redirect");
+          window.location.replace(redirect);
+          return;
+        }
+
+        var l = window.location;
+        var pathname = l.pathname;
+        var search = l.search;
+        var hash = l.hash;
+
+        sessionStorage.setItem(
+          "spa-redirect",
+          pathname.replace(/^(\/)/, "") + search + hash
+        );
+
+        window.location.replace(l.origin + "/?redirect=true");
+      })();
+    </script>
+  </head>
+  <body>
+    <p>Redirecting...</p>
+  </body>
+</html>
