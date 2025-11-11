@@ -22,6 +22,7 @@ import { motion } from "framer-motion";
 import { HomeButton } from "../components/HomeButton";
 import { AnimeCard } from "../components/AnimeCard";
 import { bangumiService } from "../services/bangumiService";
+import { PROFILE_CONFIG } from "../config/profile";
 
 // 收藏状态映射
 const COLLECTION_TYPES = {
@@ -37,6 +38,8 @@ function AnimePage() {
   const [activeTab, setActiveTab] = useState(3); // 默认显示"在看"
   const [sortMode, setSortMode] = useState("name");
   const [sortOrder, setSortOrder] = useState("desc");
+  const { primary: primaryColor, secondary: secondaryColor } =
+    PROFILE_CONFIG.colors;
 
   const loadCollections = useCallback(async () => {
     try {
@@ -265,8 +268,7 @@ function AnimePage() {
                 {/* 升序/降序切换按钮 */}
                 <IconButton
                   size="sm"
-                  colorScheme="blue"
-                  variant="outline"
+                  variant="solid"
                   onClick={toggleSortOrder}
                   icon={
                     <Icon
@@ -277,11 +279,14 @@ function AnimePage() {
                       }
                       width="18"
                       height="18"
+                      color="currentColor"
                     />
                   }
-                  bg="white"
+                  bg={primaryColor}
+                  color="white"
+                  border="none"
                   _hover={{
-                    bg: "blue.50",
+                    bg: secondaryColor,
                   }}
                   aria-label={sortOrder === "asc" ? "升序" : "降序"}
                 />
@@ -289,8 +294,7 @@ function AnimePage() {
                 {/* 排序模式切换按钮 */}
                 <Button
                   size="sm"
-                  colorScheme="blue"
-                  variant="outline"
+                  variant="solid"
                   onClick={toggleSortMode}
                   leftIcon={
                     <Icon
@@ -301,11 +305,14 @@ function AnimePage() {
                       }
                       width="16"
                       height="16"
+                      color="currentColor"
                     />
                   }
-                  bg="white"
+                  bg={primaryColor}
+                  color="white"
+                  border="none"
                   _hover={{
-                    bg: "blue.50",
+                    bg: secondaryColor,
                   }}
                 >
                   {sortMode === "name" ? "名称" : "年份"}

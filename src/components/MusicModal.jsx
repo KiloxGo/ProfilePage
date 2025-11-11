@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import {
   Modal,
   ModalOverlay,
   ModalContent,
   ModalBody,
-  ModalHeader,
   Box,
   Text,
   VStack,
@@ -13,6 +12,8 @@ import {
   Alert,
   AlertIcon,
   Flex,
+  ModalCloseButton,
+  useBreakpointValue,
 } from "@chakra-ui/react";
 import { Icon } from "@iconify/react";
 import { PROFILE_CONFIG } from "../config/profile";
@@ -28,15 +29,22 @@ export const MusicModal = ({ isOpen, onClose }) => {
   const [currentPlaying, setCurrentPlaying] = useState(null);
   const [audioUrl, setAudioUrl] = useState(null);
   const [loadingAudio, setLoadingAudio] = useState(false);
+  const playlistCacheRef = useRef(new Map());
+  const isMobile = useBreakpointValue({ base: true, md: false });
 
-  // 加载歌单数据
-  useEffect(() => {
-    if (isOpen) {
-      loadPlaylistData(MUSIC_CONFIG.playlists[selectedPlaylist].id);
+  const loadPlaylistData = useCallback(async (playlistId) => {
+    if (!playlistId) {
+      return;
     }
-  }, [isOpen, selectedPlaylist]);
 
-  const loadPlaylistData = async (playlistId) => {
+    const cached = playlistCacheRef.current.get(playlistId);
+    if (cached) {
+      setMusicData(cached);
+      setLoading(false);
+      setError(null);
+      return;
+    }
+
     setLoading(true);
     setError(null);
     setMusicData([]);
@@ -71,16 +79,32 @@ export const MusicModal = ({ isOpen, onClose }) => {
         });
 
         setMusicData(formattedMusic);
+        playlistCacheRef.current.set(playlistId, formattedMusic);
       } else {
         throw new Error("Invalid response format");
       }
     } catch (err) {
       setError("加载歌单失败");
       setMusicData([]);
+      console.error("Failed to load playlist", err);
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
+
+  // 加载歌单数据
+  useEffect(() => {
+    if (!isOpen) {
+      return;
+    }
+
+    const playlist = MUSIC_CONFIG.playlists[selectedPlaylist];
+    if (!playlist) {
+      return;
+    }
+
+    loadPlaylistData(playlist.id);
+  }, [isOpen, selectedPlaylist, loadPlaylistData]);
 
   const handlePlaySong = async (song) => {
     // 检查歌曲是否可播放
@@ -116,6 +140,7 @@ export const MusicModal = ({ isOpen, onClose }) => {
       }
     } catch (err) {
       setCurrentPlaying(null);
+      console.error("Failed to fetch song URL", err);
       // 可以显示错误提示
     } finally {
       setLoadingAudio(false);
@@ -175,31 +200,54 @@ export const MusicModal = ({ isOpen, onClose }) => {
 
   return (
     <>
-      <Modal isOpen={isOpen} onClose={onClose} isCentered size="4xl">
+      <Modal
+        isOpen={isOpen}
+        onClose={onClose}
+        isCentered={!isMobile}
+        size={isMobile ? "full" : "4xl"}
+        scrollBehavior="inside"
+      >
         <ModalOverlay bg="rgba(0, 0, 0, 0.4)" backdropFilter="blur(8px)" />
-        <Box
-          position="fixed"
-          top="50%"
-          left="50%"
-          transform="translate(-50%, -50%)"
-          zIndex="modal"
+        <ModalContent
+          bg="transparent"
+          boxShadow="none"
+          mx={{ base: 4, md: 0 }}
+          my={{ base: 6, md: 0 }}
+          maxW={isMobile ? "calc(100vw - 32px)" : "900px"}
+          borderRadius={{ base: "18px", md: "0" }}
         >
-          <Flex align="stretch" maxW="900px" w="900px">
+          <ModalCloseButton
+            top={{ base: 5, md: 6 }}
+            right={{ base: 4, md: -10 }}
+            color="white"
+            _hover={{ color: PROFILE_CONFIG.colors.primary }}
+          />
+          <Flex
+            direction={{ base: "column", md: "row" }}
+            align="stretch"
+            w="full"
+            gap={{ base: 6, md: 4 }}
+          >
             {/* 主Modal内容 */}
             <Box
               bg={PROFILE_CONFIG.colors.background.card}
               backdropFilter="blur(20px)"
               border={`1px solid ${PROFILE_CONFIG.colors.secondary}40`}
-              borderRadius="20px"
+              borderRadius={{ base: "16px", md: "20px" }}
               boxShadow="0 20px 40px rgba(54, 89, 185, 0.2), 0 8px 16px rgba(119, 187, 221, 0.15)"
-              maxH="80vh"
+              maxH={{ base: "calc(100vh - 160px)", md: "80vh" }}
               flex="1"
               position="relative"
               display="flex"
               flexDirection="column"
+              overflow="hidden"
             >
               {/* 标题 */}
-              <Box pt={8} pb={4} px={8}>
+              <Box
+                pt={{ base: 7, md: 8 }}
+                pb={{ base: 6, md: 4 }}
+                px={{ base: 6, md: 8 }}
+              >
                 <Box display="flex" alignItems="center" gap={3}>
                   <Icon
                     icon="mingcute:music-fill"
@@ -208,7 +256,7 @@ export const MusicModal = ({ isOpen, onClose }) => {
                     color={PROFILE_CONFIG.colors.primary}
                   />
                   <Text
-                    fontSize="2xl"
+                    fontSize={{ base: "xl", md: "2xl" }}
                     fontWeight="bold"
                     color={PROFILE_CONFIG.colors.text.secondary}
                   >
@@ -217,10 +265,51 @@ export const MusicModal = ({ isOpen, onClose }) => {
                 </Box>
               </Box>
 
-              <Box
-                px={8}
-                pb={8}
-                maxH="calc(80vh - 120px)"
+              {/* 移动端歌单切换 */}
+              <HStack
+                spacing={3}
+                px={{ base: 6, md: 8 }}
+                pb={{ base: 4, md: 0 }}
+                pt={{ base: 3, md: 0 }}
+                display={{ base: "flex", md: "none" }}
+                overflowX="auto"
+                css={{
+                  "&::-webkit-scrollbar": {
+                    display: "none",
+                  },
+                }}
+              >
+                {MUSIC_CONFIG.playlists.map((playlist, index) => (
+                  <Box
+                    key={playlist.id}
+                    as="button"
+                    px={4}
+                    py={2}
+                    borderRadius="999px"
+                    bg={
+                      index === selectedPlaylist
+                        ? PROFILE_CONFIG.colors.primary
+                        : PROFILE_CONFIG.colors.background.badge
+                    }
+                    color={
+                      index === selectedPlaylist
+                        ? "white"
+                        : PROFILE_CONFIG.colors.text.secondary
+                    }
+                    fontSize="sm"
+                    fontWeight="semibold"
+                    whiteSpace="nowrap"
+                    onClick={() => setSelectedPlaylist(index)}
+                  >
+                    {playlist.name}
+                  </Box>
+                ))}
+              </HStack>
+
+              <ModalBody
+                px={{ base: 6, md: 8 }}
+                pb={{ base: 6, md: 8 }}
+                pt={0}
                 overflowY="auto"
                 css={{
                   "&::-webkit-scrollbar": {
@@ -239,7 +328,7 @@ export const MusicModal = ({ isOpen, onClose }) => {
                 }}
               >
                 {renderContent()}
-              </Box>
+              </ModalBody>
             </Box>
 
             {/* 右侧标签栏 */}
@@ -250,6 +339,7 @@ export const MusicModal = ({ isOpen, onClose }) => {
               minW="120px"
               maxH="80vh"
               justify="flex-start"
+              display={{ base: "none", md: "flex" }}
             >
               {MUSIC_CONFIG.playlists.map((playlist, index) => (
                 <Box
@@ -324,7 +414,7 @@ export const MusicModal = ({ isOpen, onClose }) => {
               </Box>
             </VStack>
           </Flex>
-        </Box>
+        </ModalContent>
       </Modal>
 
       {/* 音乐播放器 */}
